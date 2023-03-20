@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  bcd-nginx:
+    container_name: "bcd-nginx"
+    build:
+      context: ./docker/nginx
+    depends_on:
+      - bcd-app
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/usr/app
+
+  bcd-app:
+    container_name: "bcd-app"
+    build:
+      context: ./docker/php
+    depends_on:
+      - bcd-mysql
+    volumes:
+      - ./src:/usr/app
+      - /usr/app/node_modules
+      - /usr/app/vendor
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+
+  bcd-mysql:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: bcd_mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: user
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_PASSWORD: root123
+      MYSQL_DATABASE: bcddb
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8001:80"
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root123
+    environment:
+      - PMA_ARBITRARY=1
