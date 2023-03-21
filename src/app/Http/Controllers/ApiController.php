@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Services\CatService;
+use App\Services\DogService;
+use App\Services\AnimalService;
+
+class ApiController extends Controller
+{
+    public $animalService;
+    public $catService;
+    public $dogService;
+
+    public function __construct(
+        AnimalService $animalService,
+        CatService $catService,
+        DogService $dogService,
+    ) {
+        $this->animalService = $animalService;
+        $this->catService = $catService;
+        $this->dogService = $dogService;
+    }
+
+    public function getBreeds(Request $request)
+    {
+        if ($request->breed == null) {
+            $response = $this->animalService->getBreedCatsandDogs($request->page, $request->limit);
+            return response()->json($response);
+        } else {
+            //call service that list all breed
+        }
+    }
+
+    public function getCatBreed(Request $request)
+    {
+        if ($request->breed == null) {
+            $response = $this->animalService->paginate($request->page, $request->limit, $this->catService->getCats());
+            return response()->json($response);
+        } else {
+            //call service that list all breed
+        }
+    }
+
+    public function getDogBreed(Request $request)
+    {
+        if ($request->breed == null) {
+            $response = $this->animalService->paginate($request->page, $request->limit, $this->dogService->getDogs());
+            return response()->json($response);
+        } else {
+            //call service that list all breed
+        }
+    }
+
+    /**
+     * param Request
+     * return JSON
+     */
+    public function getImages(Request $request)
+    {
+        dd($request->image);
+        return response()->json([
+            'name' => 'Abigail',
+            'state' => 'CA',
+        ]);
+    }
+}
