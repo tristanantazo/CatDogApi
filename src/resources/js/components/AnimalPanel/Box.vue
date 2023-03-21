@@ -48,6 +48,8 @@ export default {
         }
         .sentence {
             margin: 0px 10px 10px 10px;
+            height: 140px;
+            overflow: scroll;
             h3 {
                 font-size: 1.2rem;
             }

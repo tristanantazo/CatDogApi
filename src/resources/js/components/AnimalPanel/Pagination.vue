@@ -37,6 +37,7 @@ export default {
 <style lang="scss">
 .pagination-container {
     display: block;
+    margin: 0px auto;
     .pagination-wrapper,
     .page-count-wrapper {
         display: flex;

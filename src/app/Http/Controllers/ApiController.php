@@ -26,12 +26,8 @@ class ApiController extends Controller
 
     public function getBreeds(Request $request)
     {
-        if ($request->breed == null) {
-            $response = $this->animalService->getBreedCatsandDogs($request->page, $request->limit);
-            return response()->json($response);
-        } else {
-            //call service that list all breed
-        }
+        $response = $this->animalService->getBreedCatsandDogs($request->page, $request->limit);
+        return response()->json($response);
     }
 
     public function getCatBreed(Request $request)
@@ -40,7 +36,8 @@ class ApiController extends Controller
             $response = $this->animalService->paginate($request->page, $request->limit, $this->catService->getCats());
             return response()->json($response);
         } else {
-            //call service that list all breed
+            $response = $this->catService->getSpecificBreed($request->breed);
+            return response()->json($response);
         }
     }
 
@@ -50,20 +47,20 @@ class ApiController extends Controller
             $response = $this->animalService->paginate($request->page, $request->limit, $this->dogService->getDogs());
             return response()->json($response);
         } else {
-            //call service that list all breed
+            $response = $this->dogService->getSpecificBreed($request->breed);
+            return response()->json($response);
         }
     }
 
-    /**
-     * param Request
-     * return JSON
-     */
-    public function getImages(Request $request)
+    public function getDogImages(Request $request)
     {
-        dd($request->image);
-        return response()->json([
-            'name' => 'Abigail',
-            'state' => 'CA',
-        ]);
+        $response = $this->dogService->getDogImages($request->image_id);
+        return response()->json($response);
+    }
+
+    public function getCatImages(Request $request)
+    {
+        $response = $this->catService->getCatImages($request->image_id);
+        return response()->json($response);
     }
 }

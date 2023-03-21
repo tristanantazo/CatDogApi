@@ -21,4 +21,16 @@ class DogService
     {
         return self::getDogsApiData();
     }
+
+    public function getSpecificBreed($breed)
+    {
+        $response = Http::get(self::DOG_API_URL_V1 . "/breeds/" . $breed);
+        return $response->json();
+    }
+
+    public function getDogImages($image)
+    {
+        $response = Http::get(self::DOG_API_URL_V1 . "/images/" . $image);
+        return $response->json();
+    }
 }

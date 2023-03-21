@@ -21,4 +21,16 @@ class CatService
             return [...$item, "animal_type" => 'cat'];
         });
     }
+
+    public function getSpecificBreed($breed)
+    {
+        $response = Http::get(self::CAT_API_URL_V1 . "/breeds/" . $breed);
+        return $response->json();
+    }
+
+    public function getCatImages($image)
+    {
+        $response = Http::get(self::CAT_API_URL_V1 . "/images/" . $image);
+        return $response->json();
+    }
 }

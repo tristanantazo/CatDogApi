@@ -24,10 +24,10 @@ Route::prefix('v1')->group(function () {
     Route::get('cats-and-dogs', [ApiController::class, 'getBreeds'])->name('getBreed');
     Route::prefix('/cat')->group(function () {
         Route::get('breeds/{breed?}', [ApiController::class, 'getCatBreed'])->name('getCatBreed');
-        Route::get('images/{image}', [ApiController::class, 'getCatImages'])->name('getCatImages');
+        Route::get('images/{image_id}', [ApiController::class, 'getCatImages'])->name('getCatImages');
     });
     Route::prefix('/dog')->group(function () {
         Route::get('breeds/{breed?}', [ApiController::class, 'getDogBreed'])->name('getDogBreed');
-        Route::get('images/{image}', [ApiController::class, 'getDogImages'])->name('getDogImages');
+        Route::get('images/{image_id}', [ApiController::class, 'getDogImages'])->name('getDogImages');
     });
 });
